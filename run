@@ -1,9 +1,9 @@
 #!/usr/bin/env bash
 
-# all we are doing here is making a varible containing HOME
+# variable containing home
 script_dir=$(cd $(dirname "${BASH_SOURCE[0]}") && pwd)
 
-# this is the argv thing
+# dry run functionality
 filter=""
 dry="0"
 
