@@ -1,0 +1,55 @@
+#!/usr/bin/env bash
+
+# all we are doing here is making a varible containing HOME
+script_dir=$(cd $(dirname "${BASH_SOURCE[0]}") && pwd)
+
+# this is the argv thing
+filter=""
+dry="0"
+
+# parse your own command line args
+while [[ $# -gt 0 ]]; do
+	if [[ $1 == "--dry" ]]; then
+		dry="1"
+	else
+		filter="$1"
+	fi
+	#shift - pops from arg list
+	shift
+done
+
+#function
+log() {
+	if [[ $dry == "1" ]]; then
+		echo "[DRY_RUN]: $@"
+	else
+		echo "$@"
+	fi
+}
+
+#function
+execute() {
+	log "execute $@"
+	if [[ $dry == "1" ]]; then
+		return
+	fi
+	"$@"
+}
+
+# echo A + B
+log "$script_dir -- $filter"
+
+# provide dir and args and it will recursively hand you back list
+
+cd $script_dir
+
+scripts=$(find ./runs -maxdepth 1 -mindepth 1 -perm -111 2>/dev/null)
+
+for script in $scripts; do
+	if [[ -n "$filter" && ! "$script" =~ $filter ]]; then	
+		log "filtering $script"
+		continue
+	fi
+
+	execute ./$script
+done

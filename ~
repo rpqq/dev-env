@@ -1,0 +1,25 @@
+#!/usr/bin/env bash
+
+# all we are doing here is making a varible containing HOME
+script_dir=$(cd $(dirname "${BASH_SOURCE[0]}") && pwd)
+
+# this is the argv thing
+filter="$1"
+
+# echo A + B
+echo "$script_dir -- $filter"
+
+# provide dir and args and it will recursively hand you back list
+
+cd $script_dir
+
+scripts=$(find ./runs -maxdepth 1 -mindepth 1 -perm +111 2>/dev/null)
+
+for script in $scripts; do
+	if echo "$filter" | grep -q "$filter"; then
+		echo "filtering $script"
+		continue
+	fi
+
+	./$script
+done
