@@ -1,0 +1,39 @@
+#!/usr/bin/env bash
+
+#containing home
+script_dir=$(cd $(dirname "${BASH_SOURCE[0]}") && pwd)
+
+# dry run functionality
+dry="0"
+
+# parse your own command line args
+while [[ $# -gt 0 ]]; do
+	if [[ $1 == "--dry" ]]; then
+		dry="1"
+	fi
+	#shift - pops from arg list
+	shift
+done
+
+#function
+log() {
+	if [[ $dry == "1" ]]; then
+		echo "[DRY_RUN]: $@"
+	else
+		echo "$@"
+	fi
+}
+
+#function
+execute() {
+	log "execute $@"
+	if [[ $dry == "1" ]]; then
+		return
+	fi
+	"$@"
+}
+
+log "-------------- dev-env --------------"
+
+
+
