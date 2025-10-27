@@ -59,5 +59,6 @@ copy_file() {
 	execute cp $from $to/$name
 }
 
-copy_dir config $HOME/.config/test
+copy_dir config $HOME/.config
+copy_dir .local $HOME/.local
 copy_file .specialconfig $HOME/.config

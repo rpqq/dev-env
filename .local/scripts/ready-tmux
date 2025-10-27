@@ -1,0 +1,12 @@
+#!/usr/bin/env bash
+
+# if there is an exe file in cd
+
+if [[ -x ".ready-tmux" ]]; then
+	./.ready-tmux
+
+# elif there is an exe file in HOME
+elif [[ -x "~/.ready-tmux" ]]; then
+	~/.ready-tmux	
+fi
+clear
