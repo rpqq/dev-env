@@ -33,7 +33,7 @@ execute() {
 	"$@"
 }
 
-log "------------- dev-env -------------"
+log "----------------  dev-env ----------------"
 
 copy_dir() {
 	from=$1
@@ -49,5 +49,15 @@ copy_dir() {
 	popd > /dev/null
 }
 
+# copy from this file to this directory
+copy_file() {
+	from=$1
+	to=$2
+	name=$(basename $from)
+
+	execute rm $to/$name
+	execute cp $from $to/$name
+}
 
 copy_dir config $HOME/.config/test
+copy_file .specialconfig $HOME/.config
