@@ -1,4 +1,2 @@
 #!/usr/bin/bash env
 
-git clone --depth 1 https://github.com/junegunn/fzf.git ~/.fz
-~/.fzf/install
